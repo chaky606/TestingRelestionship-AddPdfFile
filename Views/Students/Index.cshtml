@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Student>
+
+@{
+    ViewData["Title"] = "All students records";
+    }
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead class="text-center">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.StName)</th>
+                    <th>@Html.DisplayNameFor(model => model.SexCategory)</th>
+                    <th>@Html.DisplayNameFor(model => model.TecherId)</th>
+                    <th>@Html.DisplayNameFor(model => model.ClassroomId)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelIem => item.StName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelIem => item.SexCategory)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.TecherId)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.ClassroomId)
+                        </td>
+                        <td class="align-middle text-center">
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a> |
+                            <a class="btn btn-info text-dark" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a> |
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

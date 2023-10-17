@@ -1,0 +1,92 @@
+﻿@model NewFileStoreVM
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@{
+    ViewData["Title"] = "All Attached file record";
+}
+<div class="text-center">
+    <h1 class="display-5">File Upload</h1>
+</div>
+<div class="container">
+    <div class="mb-3 mt-3">
+
+        <form method="post" enctype="multipart/form-data" asp-action="Upload">
+            <div class="mb-3">
+                <lable class="form-label">Student Id</lable>
+                <input type="text" name="StudentId" class="form-control">
+                <ul id="fileList"></ul>
+            </div>
+            <div>
+                <p>Upload one or more files using this form:</p>
+                <input type="file" name="Files" accept=".pdf" />
+                <button type="button" id="addToList">Add to List</button>
+            </div>
+          
+            <div>
+                <input type="submit" value="Upload" />
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+
+<script>
+    console.log($)
+    $(document).ready(function () {
+        var fileList = new Array();
+        $("#addToList").click(function () {
+            var fileInput = $('input[type=file]')[0];
+            if (fileInput && fileInput.files.length > 0) {
+                fileList.push(fileInput.files[0]);
+                console.log(fileInput)
+                var li = document.createElement("li");
+                li.textContent = fileInput.files[0].name;
+                // Create a delete button
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.onclick = function () {
+                    // Remove the clicked list item
+                    li.remove();
+                    // Remove the corresponding file from fileList
+                    var index = $(li).index();
+                    fileList.splice(index, 1);
+                };
+                // Append the delete button to the list item
+                li.appendChild(deleteButton);
+                // Append the list item to the list
+                document.getElementById("fileList").appendChild(li);
+                fileInput.value = "";
+                alert("File added to list.");
+            } else {
+                alert("No file selected or file input not found.");
+            }
+        });
+
+        $("form").submit(function (e) {
+            if (fileList.length === 0) {
+                e.preventDefault();
+                alert("No files added to list.");
+            } else {
+                var formData = new FormData();
+                for (var i = 0; i < fileList.length; i++) {
+                    formData.append('Files', fileList[i]);
+                }
+                // Add StudentId to formData
+                var studentId = $('input[name="StudentId"]').val();
+                formData.append('StudentId', studentId);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        // Handle the result of the upload here
+                    }
+                });
+            }
+        });
+    });
+</script>
+

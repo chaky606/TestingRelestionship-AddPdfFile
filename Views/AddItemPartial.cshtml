@@ -1,0 +1,8 @@
+﻿@model FileStore
+<h4>Testing post to list</h4>
+
+<form asp-action="AddItem" method="POST">
+    <label asp-for="Name">Add a new item:</label>
+    <input asp-for="Name">
+    <button type="submit">Add</button>
+</form>

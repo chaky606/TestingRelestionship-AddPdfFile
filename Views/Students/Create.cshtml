@@ -1,0 +1,47 @@
+﻿@model NewStudentVM
+@using TestingRelestionship.Data.Enums
+@{
+    ViewData["Title"] = "Create a new student record";
+    }
+
+<div cite="row">
+    <div class="col-md-8 offset-2">
+        <P>
+            <h4>Create a new student record</h4>
+        </P>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StName" class="control-label"></label>
+                <input asp-for="StName" class="form-control" />
+                <span asp-validation-for="StName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SexCategory" class="control-label"></label>
+                <select asp-for="SexCategory" asp-items="Html.GetEnumSelectList<SexCategory>()" class="form-control"></select>
+                <span asp-validation-for="SexCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YearDOB" class="control-label"></label>
+                <input asp-for="YearDOB" class="form-control" />
+                <span asp-validation-for="YearDOB" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ClassroomId" class="control-label"></label>
+                <select asp-for="ClassroomId" asp-items="ViewBag.Classroom" class="form-control"></select>
+                <span asp-validation-for="ClassroomId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TecherId" class="control-label"></label>
+                <select asp-for="TecherId" asp-items="ViewBag.Techer" class="form-control"></select>
+                <span asp-validation-for="TecherId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success float-end" />
+                <a class="btn btn-secondary" asp-action="Index">Show all</a>
+            </div>
+        </form>
+    </div>
+</div>
